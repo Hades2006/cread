@@ -1,0 +1,115 @@
+<%- include('menu/header') %>
+
+    <div class="ust">
+      <br>
+      <img style="width: 450px;" src="img/ana-logo.png">
+      <br>
+      <h3>
+       <a href="https://www.bestdiscordbots.xyz" style="text-decoration: none;">Best Discord Bots</a>
+      </h3>
+      <br>
+      <h4>
+        Yeni alan adı bağlantısına geçiş yapıldı.
+        <h4>
+      Sitemizin adı değiştirildi.
+        </h4>
+        <br><br><center>
+    
+        </div>
+        <br></center>
+      <br>
+      <br>
+          </div>
+
+  
+
+
+<div class="top">
+  <br>
+  
+  <br>
+  <h3 class="sertifika-yazi">
+    En Fazla Oy Alanlar
+  </h3>
+  <h5 class="seritifika-p-yazi">
+    Bir ay içersindeki en iyi bot listesi.
+  </h5>
+<button class="btn btn-primary">
+  <a href="/bots" style="color: white; text-decoration: none;">Tüm Botlar</a>
+  </button>
+<div class="top">
+  <br>
+               
+  <img src="https://i.hizliresim.com/DOlrvy.png">
+  <br>
+  
+  
+  
+	
+  
+   
+		
+                              
+  <center>
+   
+ <div class="top">
+  <br>
+               <% if (bot.ayar.has('botlar')) { %>
+  <% const sorted = Object.keys(bot.ayar.fetch('botlar')).sort((a, b) => { return (bot.ayar.fetch(`botlar.${b}.oy`) || 0) - (bot.ayar.fetch(`botlar.${a}.oy`) || 0) }) %>
+  <% const top = sorted.splice(0, Object.keys(bot.ayar.fetch('botlar')).length) %>
+  <% const map = top.map(x=>x) %>
+	<% for(var i = 0; i < Object.keys(bot.ayar.fetch('botlar')).length; i++) { %>
+  <% let idd = map[i] %>
+   <% if(bot.ayar.has(`botlar.${idd}.durum`) === true) { %>
+		<% if (bot.ayar.fetch(`botlar.${idd}.durum`) === "Onaylı") { %>
+                              <% if(bot.ayar.has(`botlar.${idd}.sertifika`) === true) { %>
+           <div style="float: left; margin-right: 12px; margin-left: 19px; border: 2px solid orange" class="card">
+                            <% } else {%>
+   <div style="float: left; margin-right: 12px; margin-left: 19px;" class="card">
+                        <% } %>
+
+            <div class="photo"><img style="border-radius: 50%; margin-top: -100px;" class="photo" src="<%=bot.ayar.fetch(`botlar.${idd}.avatar`)%>"></div>
+            <div class="banner"></div>
+              <br>
+     <h5>
+       <a href="/view/<%=idd%>" style="text-decoration: none;"> <%=bot.useful.seg(bot.ayar.fetch(`botlar.${idd}.isim`), 5)%></a>
+     </h5>
+                    
+                    </h5>
+                                     <center>
+               <p class="card-text"><%=bot.ayar.fetch(`botlar.${idd}.kisaaciklama`)%></p>
+             </center>
+           <center>
+             <a href="/view/<%=idd%>"><button style="width:100px; height: 35px;margin-top: 20px;" class="btn btn-primary" type="submit">Görüntüle</button></a>
+             <a href="https://discordapp.com/oauth2/authorize?client_id=<%=idd%>&scope=bot&permissions=0"><button style="width:100px; height: 35px;margin-top: 20px;" class="btn btn-primary" type="submit">Davet</button></a>
+            </center>
+            <br>
+          </div>
+
+   <% } %>
+    <% } %>
+   <% } %>
+   <% } else {%>
+   <center><h5 style="margin-left: 10px;color:white;">
+Listelenecek bot yok.
+     </h5></center>
+</div>
+   <% } %>
+  
+</div>
+
+<style>
+
+
+  .rengarenk {
+    
+    color: skyblue;
+    
+    
+  }
+
+
+
+</style>
+
+<%- include('menu/footer') %>

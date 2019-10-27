@@ -1,0 +1,86 @@
+<%- include('menu/header', {bot, user, path}) %>
+    <div style="text-align: left;padding: 20px;" class="ust">
+      <br>
+      <h3>
+        Botlar
+      </h3>
+      <br>
+      <h4>
+        <% const sayi =  Object.getOwnPropertyNames(bot.ayar.fetch('botlar'))  %>
+        <% const onayli =  Object.getOwnPropertyNames(bot.ayar.fetch('botlar'))  %>
+Seçimini yap ve  <%= sayi.length %> boottan istediklerini sunucuna ekle.
+      </h4>
+      <br>
+      <input type="text" id="ara" class="form-control" placeholder="Bot ismine veya anahtarına göre arayın." aria-label="Bot Ara" aria-describedby="button-addon3">
+      <br>
+          </div>
+ <center><br><br>
+                 
+               
+  <img src="https://i.hizliresim.com/DOlrvy.png">
+  </center> 
+<div class="top">
+  
+               <% if (bot.ayar.has('botlar')) { %>
+  <% const sorted = Object.keys(bot.ayar.fetch('botlar')).sort((a, b) => { return (bot.ayar.fetch(`botlar.${b}.oy`) || 0) - (bot.ayar.fetch(`botlar.${a}.oy`) || 0) }) %>
+  <% const top = sorted.splice(0, Object.keys(bot.ayar.fetch('botlar')).length) %>
+  <% const map = top.map(x=>x) %>
+	<% for(var i = 0; i < Object.keys(bot.ayar.fetch('botlar')).length; i++) { %>
+  <% let idd = map[i] %>
+   <% if(bot.ayar.has(`botlar.${idd}.durum`) === true) { %>
+		<% if (bot.ayar.fetch(`botlar.${idd}.durum`) === "Onaylı") { %>
+                              <% if(bot.ayar.has(`botlar.${idd}.sertifika`) === true) { %>
+   <div style="float: left; margin-right: 12px; margin-left: 25px; border: 5px solid skyblue" class="card">
+    <div style="background-color: #1E1E1E;">
+     <h3 style="background-color: #1E1E1E; color: white;">
+       <img src="https://resimag.com/p1/9188c78b21d.png" style="margin-right: 1000px; width: 40px; height: 40px;">
+      </h3> 
+     </div>
+             
+                            <% } else {%>
+   <div style="float: left; margin-right: 12px; margin-left: 19px;" class="card">
+                        <% } %>
+
+            <div class="photo"><img style="border-radius: 50%; margin-top: -100px;" class="photo" src="<%=bot.ayar.fetch(`botlar.${idd}.avatar`)%>"></div>
+            <div class="banner"></div>
+              <br>
+     <h5>
+       <a href="/view/<%=idd%>" style="text-decoration: none;"> <%=bot.useful.seg(bot.ayar.fetch(`botlar.${idd}.isim`), 5)%></a>
+     </h5>
+                    
+                    </h5>
+                                     <center>
+               <p class="card-text"><%=bot.ayar.fetch(`botlar.${idd}.kisaaciklama`)%></p>
+             </center>
+           <center>
+             <a href="/view/<%=idd%>"><button style="width:100px; height: 35px;margin-top: 20px;" class="btn btn-primary" type="submit">Görüntüle</button></a>
+             <a href="https://discordapp.com/oauth2/authorize?client_id=<%=idd%>&scope=bot&permissions=0"><button style="width:100px; height: 35px;margin-top: 20px;" class="btn btn-primary" type="submit">Davet</button></a>
+            </center>
+            <br>
+          </div>
+
+   <% } %>
+    <% } %>
+   <% } %>
+   <% } else {%>
+   <center><h5 style="margin-left: 10px;color:white;">
+Listelenecek bot yok.
+     </h5></center>
+</div>
+   <% } %>
+  
+</div>
+
+            <script>
+      $(document).ready(function() {
+        $("#ara").keyup(function() {
+          var arr = []
+          var value = $(this).val().toLowerCase()
+          $(".card").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          })
+        })
+      })
+    </script>
+
+<%- include('menu/footer') %>

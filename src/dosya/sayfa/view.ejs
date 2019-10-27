@@ -1,0 +1,111 @@
+<%- include('menu/bot-header') %>
+<style>
+      .profilebadges {
+  width: 35px;
+  height: 35px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.65));
+  }
+  
+  
+  .deneme {
+    
+ background-color: white;
+  box-shadow: inset 0 0 5.5em black;
+}
+
+
+  
+  
+  
+</style>
+
+    <div class="deneme">
+      <br>
+      <center>
+                <% if (user) { %>
+          <% if(bot.ayar.fetch(`botlar.${id}.sahipid`) === user.id) { %>
+          <a href="/profile/<%=user.id%>/bot/<%=id%>/edit"><button class="btn btn-primary duzenle"><i aria-hiddden="true"></i> Düzenle</button></a>
+        <a href="/profile/<%=user.id%>/bot/<%=id%>/delete"><button class="sil btn btn-danger"><i aria-hidden="true"></i>Botu Sil</button></a>
+                
+       <br>
+        <br>
+          <% } %>
+        <% } %>
+
+      <img class="view-resim" src="<%=bot.ayar.fetch(`botlar.${id}.avatar`)%>">
+        <br>
+        <h3 style="color: black;"><%=bot.ayar.fetch(`botlar.${id}.isim`)%></h3>   
+      
+       
+   
+        <h3>                    
+        <h6 style="color: black;">
+          <%=bot.ayar.fetch(`botlar.${id}.kisaaciklama`)%>
+             <%if (bot.ayar.fetch(`botlar.${id}.durum`) === 'Beklemede' || bot.ayar.has(`botlar.${id}.durum`) === false) { %>
+          <br>
+                <h6 style="color: red;">
+                  Bot şuanda onaylanmamıştır.
+          </h6>
+     <% } %>
+          </h6>
+                <br>   <% if (!user) { %>
+          <a href="/giris"><button id="oy" href="/giris" class="btn btn-primary oyver" type="sumbit"><i aria-hidden="true"></i>Bota oy vermek için giriş yapmalısın.</button> <i class="fas fa-plus"></i></a>
+                    <% } else { %>
+        <a href="/bot/<%=id%>/oyver"><button id="oy" href="/vote/<%=id%>" class="btn btn-primary oyver" type="sumbit"><i class="fas fa-plus"></i>Oy Ver <i class="fas fa-plus"></i></button></a>
+                      <% } %></a><br><br>
+                <button type="button" class="btn btn-danger">Oylar : <%=bot.ayar.fetch(`botlar.${id}.oy`)||0%></button>
+                <a href="/profile/<%=bot.ayar.fetch(`botlar.${id}.sahipid`)%>"><button type="button" class="btn btn-danger"><%=bot.ayar.fetch(`botlar.${id}.sahip`)%></button></a>
+      
+         <a href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=8"><button class="btn btn-primary" type="submit">Davet</button></a>
+        <button type="button" class="btn btn-warning"><%=bot.ayar.fetch(`botlar.${id}.prefix`)%></button>
+                <button type="button" class="btn btn-warning"><%=bot.ayar.fetch(`botlar.${id}.kutuphane`)%></button>
+        </center>
+      <br>
+
+
+          </div>
+
+
+<div class="top">
+  <div class="jumbotron jumbotron-dark">
+  <div class="container">
+
+      <div id="uaçıklama" class="incele-uzun" style="background-image: none; color: #FFFFFF; background-color: #333;" align="center">
+    <% if (bot.ayar.has(`botlar.${id}.uzunaciklama`) || bot.ayar.fetch(`botlar.${id}.uzunaciklama`) !== undefined || bot.ayar.fetch(`botlar.${id}.uzunaciklama`) !== null) { %>
+<% var xx %>
+<% for (var ii = 0; ii < bot.tags.length; ii++) { %>
+  <% if(bot.ayar.fetch(`botlar.${id}.uzunaciklama`).includes(bot.tags[ii]) === false) {%>
+    <% xx = false %>
+ <% } %>
+    <% if (bot.ayar.fetch(`botlar.${id}.uzunaciklama`).includes(bot.tags[ii]) === true) { %>
+     <% x = true %>
+    <% } %>
+<% } %>
+ <br> <br>
+<% if (x === false) { %>
+  <p><%=bot.ayar.fetch(`botlar.${id}.uzunaciklama`)%></p>
+<% } else if (x === true) { %>
+    <% let $ = bot.htmll.load(bot.ayar.fetch(`botlar.${id}.uzunaciklama`)) %>
+  <%- $.html() %>
+    <% } %>
+     <br> <br>
+    <% } else { %>
+    <p>Bir Discord botu işte!</p>
+     <br>
+      <br>
+      <br>
+      <br>
+         <br>
+      <br>
+      <br>
+     
+    <% } %>
+  </div>
+</div>
+</div>
+  

@@ -1,0 +1,129 @@
+<%- include('menu/header', {bot, user, path}) %>
+    <style>
+    .profilepic {
+    z-index: 10000;
+    display: block;
+    margin: auto;
+    
+    width: 150px;
+    border-radius: 50%;
+}
+      .badgecase {
+    border-radius: 4px;
+    color: black;
+    text-align: center;
+    display: block;
+    margin: auto;
+    width: 80px;
+    word-wrap: break-word;
+    margin-top: 10px;
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.badgecase img {
+    width: 50px;
+  float: left;
+    height: 50px;
+    border-radius: 5px;
+}
+      #bgslide {
+  box-shadow: inset 2px 80px 200px 0px #404040;
+  -webkit-box-shadow: inset 2px 80px 200px 0px #404040;
+  -moz-box-shadow: inset 2px 80px 200px 0px #404040;
+  -o-box-shadow: inset 2px 80px 200px 0px #404040;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 1rem 1.5rem; 
+  outline: solid 2px #7289da;
+}
+      .profilebadges {
+  width: 35px;
+  height: 35px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.65));
+  }
+
+@keyframes bgmove {
+  from {background-position: bottom center;}
+  to {background-position: top center;}
+}
+
+#bgslide {
+  animation: bgmove 30s linear infinite;
+  animation-direction: alternate;
+  }
+
+@media screen and (min-width: 500px), print {
+  #bgslide {
+    padding-bottom: 5rem;
+    padding-top: 8rem; } }
+
+@media screen and (max-width: 500px), print {
+  #bgslide {
+    padding-bottom: 1rem;
+    padding-top: 6rem; 
+    background-size: auto !important; } }
+    </style>
+<div class="top">
+  <br>
+  <h3 class="sertifika-yazi">
+    Botların
+  </h3>
+  <h5 class="sertifika-yazi">
+   Sertifika için bir bot seçin.
+  </h5>
+  
+  <% if (bot.ayar.has('botlar')) { %>
+    <% if (bot.ayar.has(`kbotlar.${kisi.id}`)) { %>   
+
+<%for(var i = 0; i < Object.keys(bot.ayar.fetch('botlar')).length; i++) {%>
+<% var idd = Object.keys(bot.ayar.fetch('botlar'))[i] %>
+<%  if (bot.ayar.fetch(`botlar.${idd}.sahipid`) === kisi.id) { %>
+         <% if(bot.ayar.has(`botlar.${idd}.sertifika`) === true) { %>
+           <div style="float: left; margin-right: 22px; margin-left: 19px; border: 2px solid orange" class="card">
+                            <% } else {%>
+   <div style="float: left; margin-right: 12px; margin-left: 99px;" class="card">
+                        <% } %>
+
+            <div class="photo"><img style="border-radius: 50%; margin-top: -100px;" class="photo" src="<%=bot.ayar.fetch(`botlar.${idd}.avatar`)%>"></div>
+            <div class="banner"></div>
+            <ul>
+              <br>
+                <h5>
+       <a href="/view/<%=idd%>" style="text-decoration: none;"> <%=bot.useful.seg(bot.ayar.fetch(`botlar.${idd}.isim`), 5)%></a>
+     </h5>
+                                 <center>
+               <p class="card-text"><%=bot.ayar.fetch(`botlar.${idd}.kisaaciklama`)%></p>
+             </center>
+           <center>
+            
+             
+                         
+             
+                          <% if (user) { %>
+       <% if (user.id === kisi.id) { %>
+ <a href="/verificationsssssss/<%=idd%>"><button style="width:100px; height: 35px;margin-top: 20px;" class="btn btn-primary" type="submit">Seç</button></a>
+      <br>
+       <% } %>
+       <% } %>
+            
+            <br>
+          </div>
+             
+   <% } %>
+    <% } %>
+   <% } %>
+   <% } else {%>
+             <br>
+   <center><h5 class="sertifika-yazi">
+     No bots available to list.
+     </h5></center>
+</div>
+   <% } %>
+</div>
+      <%- include('menu/footer') %>
